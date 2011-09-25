@@ -9,5 +9,5 @@
   
     <entry-point class='com.akjava.gwt.hangout.apilist.client.APILists'/>
     
-    <set-property name="user.agent" value="safari"/>
+
 </module>
