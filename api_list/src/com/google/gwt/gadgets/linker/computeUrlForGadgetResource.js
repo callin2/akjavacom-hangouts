@@ -1,3 +1,9 @@
+
+/**
+ * original code written by Google
+ * I modified for my app
+ */
+
 /*
  * Copyright 2011 Google Inc.
  *
@@ -30,8 +36,9 @@ function computeUrlForResource(resource) {
 	// Allow GWT resources marked named as cachabele to be cached for one year.
 	cacheSpec = {refreshInterval:31536000};
   }
-  
+  /** YOU MUST REPLACE HERE **/
   resource="http://api.akjava.com/api_list/"+resource;
+  
   /* Prepend anything that is not a fully qualified URL with the module base URL */
   if (!resource.match(/^[a-zA-Z]+:\/\//)) {
 	  resource = __MODULE_FUNC__.__moduleBase + resource;
