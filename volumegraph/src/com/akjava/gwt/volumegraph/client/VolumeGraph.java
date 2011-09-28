@@ -106,7 +106,7 @@ public class VolumeGraph extends Gadget<TestPreference> implements SupportFeatur
 		canvas.setCoordinateSpaceHeight(h);
 		
 		
-		
+		addReady();
 	}
 	int dummyParticipant;
 	long vindex=0;
@@ -170,7 +170,7 @@ public class VolumeGraph extends Gadget<TestPreference> implements SupportFeatur
 					volumeMap.put("dummy"+i, (int) (Math.random()*5));
 				}
 				JsArrayString keys=volumeMap.keys();
-				debug.setText(""+keys.length());
+				
 			
 				for(int i=0;i<keys.length();i++){
 					String key=keys.get(i);
@@ -244,7 +244,7 @@ public class VolumeGraph extends Gadget<TestPreference> implements SupportFeatur
 	VolumesChangedListener volumeChangeListener;
 	ApiReadyListener listener;
 	private Canvas canvas;
-	private Label debug;
+	
 
 	public void addReady(){
 		listener=new ApiReadyListener() {
