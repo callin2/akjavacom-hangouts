@@ -21,9 +21,9 @@ import java.util.Map;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
-public class StringMap extends JavaScriptObject{
+public class StateMetadataMap extends JavaScriptObject{
 
-	protected StringMap(){}
+	protected StateMetadataMap(){}
 
 	public final native JsArrayString keys()/*-{
     var array=new Array();
@@ -35,7 +35,7 @@ public class StringMap extends JavaScriptObject{
     return array;
     }-*/;
 	
-	public final native String get(String key) /*-{
+	public final native StateMetadata get(String key) /*-{
     return this[key];
   	}-*/;
 	
@@ -44,9 +44,9 @@ public class StringMap extends JavaScriptObject{
   	}-*/;
 	
 	/*maybe slow*/
-	public final  Map<String,String> getAsMap(){
+	public final  Map<String,StateMetadata> getAsMap(){
 		JsArrayString keys=keys();
-		Map<String,String> map=new HashMap<String,String>();
+		Map<String,StateMetadata> map=new HashMap<String,StateMetadata>();
 		for(int i=0;i<keys.length();i++){
 			String key=keys.get(i);
 			map.put(key, get(key));

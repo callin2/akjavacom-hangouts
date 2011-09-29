@@ -18,9 +18,17 @@ package com.akjava.gwt.api.hangout.client.js;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
+/**
+ * @deprecated use Data
+ * @return
+ */
 public class State extends JavaScriptObject{
 	protected State(){}
 	
+	/**
+	 * @deprecated use StringMap
+	 * @return
+	 */
 	public final native JsArrayString keys()/*-{
     var array=new Array();
     var index=0;
@@ -31,24 +39,36 @@ public class State extends JavaScriptObject{
     return array;
     }-*/;
 	
+	/**
+	 * @deprecated use StringMap
+	 * @return
+	 */
 	public final native String get(String key) /*-{
     return this[key];
   	}-*/;
 	
+	/**
+	 * @deprecated use StringMap
+	 * @return
+	 */
 	public final native void set(String key,String value) /*-{
     this[key]=value;
   	}-*/;
 	
-	
-	public static final native State getState() /*-{
+	/**
+	 * @deprecated use StringMap
+	 * @return
+	 */
+	public static final native StringMap getState() /*-{
     return $wnd.gapi.hangout.data.getState()
   	}-*/;
 	
 	/**
 	 * i faild to implements removes
+	 * @deprecated use StringMap
 	 * @param updates
 	 */
-	public static final native void submitDelta(State updates) /*-{
+	public static final native void submitDelta(StringMap updates) /*-{
     $wnd.gapi.hangout.data.submitDelta(updates);
   	}-*/;
 	
