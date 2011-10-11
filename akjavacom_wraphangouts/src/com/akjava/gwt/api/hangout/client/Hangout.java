@@ -61,5 +61,16 @@ public class Hangout {
 		 public static void addApiReadyListener(ApiReadyListener listener){
 			 getHangout().addApiReadyListener(listener);
 		 }
+		 public static  String getHangoutId() {
+			 return getHangout().getHangoutId();
+		 }
+		 
+		 public static  String getLocale(){
+			 return getHangout().getLocale();
+		 }
+		 
+		 public static  String getParticipantId() {
+			 return getHangout().getParticipantId();
+		 }
 		
 }

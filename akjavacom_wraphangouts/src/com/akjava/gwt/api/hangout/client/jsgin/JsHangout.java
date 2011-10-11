@@ -59,4 +59,17 @@ public class JsHangout implements IHangout{
 	public void removeApiReadyListener(ApiReadyListener listener) {
 		Hangout.removeApiReadyListener(listener);
 	}
+	
+	@Override
+	public String getHangoutId() {
+		return Hangout.getHangoutId();
+	}
+	@Override
+	public String getLocale() {
+		return Hangout.getLocale();
+	}
+	@Override
+	public String getParticipantId() {
+		return Hangout.getParticipantId();
+	}
 }

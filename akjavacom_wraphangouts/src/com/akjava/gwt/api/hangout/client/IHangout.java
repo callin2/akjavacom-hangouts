@@ -26,4 +26,8 @@ public interface IHangout {
 	public void addAppVisibleListener(AppVisibleListener listener);
 	 public  void addApiReadyListener(ApiReadyListener listener);
 	 public  void removeApiReadyListener(ApiReadyListener listener);
+	 
+	public String getHangoutId();
+	public String getLocale();
+	public String getParticipantId();
 }
