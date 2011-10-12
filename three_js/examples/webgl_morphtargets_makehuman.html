@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - morph targets - horse</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #f0f0f0;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script src="../build/Three.js"></script>
+
+		<script src="js/RequestAnimationFrame.js"></script>
+		<script src="js/Stats.js"></script>
+
+		<script>
+
+			var container, stats;
+			var camera, scene, projector, renderer;
+			var mesh;
+
+			init();
+			
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '10px';
+				info.style.width = '100%';
+				info.style.textAlign = 'center';
+				info.innerHTML = '<a href="http://github.com/mrdoob/three.js" target="_blank">three.js</a> webgl - morph targets - human modeled by <a href="http://www.makehuman.org/">Makehuman</a>. Motion from <a href="https://sites.google.com/a/cgspeed.com/cgspeed/">cgspeed</a>';
+				container.appendChild( info );
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.y = 300;
+
+				camera.target = new THREE.Vector3( 0, 150, 0 );
+
+				scene = new THREE.Scene();
+
+				//
+
+				var light = new THREE.DirectionalLight( 0xefefff, 2 );
+				light.position.set( 1, 1, 1 ).normalize();
+				scene.add( light );
+
+				var light = new THREE.DirectionalLight( 0xffefef, 2 );
+				light.position.set( -1, -1, -1 ).normalize();
+				scene.add( light );
+
+				var loader = new THREE.JSONLoader( true );
+				loader.load( { model: "models/animated/outfile.js", callback: function( geometry ) {
+
+					
+					mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: 0x606060, morphTargets: true } ) );
+					 mesh.scale.set( 15, 15, 15 );
+					 mesh.rotation.set(0,90,0);
+					 mesh.position.set(200,0,0);
+					scene.add( mesh );
+
+				} } );
+
+				//
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.sortObjects = false;
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				container.appendChild(renderer.domElement);
+
+				//
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				container.appendChild( stats.domElement );
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			var radius = 1000;
+			var theta = 0;
+
+			var duration = 10000;
+			var keyframes = 200 /*16*/, interpolation = duration / keyframes;
+			var lastKeyframe = 0, currentKeyframe = 0;
+
+			function render() {
+
+				theta += 0.2;
+				//base code come from http://mrdoob.github.com/three.js/examples/webgl_morphtargets_horse.html
+				//there are not nesecelly values.
+				
+				//camera.position.x = radius * Math.sin( theta * Math.PI / 360 );
+				//camera.position.z = radius * Math.cos( theta * Math.PI / 360 );
+
+				camera.lookAt( camera.target );
+
+				if ( mesh ) {
+
+					// Alternate morph targets
+
+					var time = new Date().getTime() % duration;
+
+					var keyframe = Math.floor( time / interpolation ) + 1;
+
+					if ( keyframe != currentKeyframe ) {
+
+						mesh.morphTargetInfluences[ lastKeyframe ] = 0;
+						mesh.morphTargetInfluences[ currentKeyframe ] = 1;
+						mesh.morphTargetInfluences[ keyframe ] = 0;
+
+						lastKeyframe = currentKeyframe;
+						currentKeyframe = keyframe;
+
+						// console.log( mesh.morphTargetInfluences );
+
+					}
+
+					mesh.morphTargetInfluences[ keyframe ] = ( time % interpolation ) / interpolation;
+					mesh.morphTargetInfluences[ lastKeyframe ] = 1 - mesh.morphTargetInfluences[ keyframe ];
+
+				}
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
